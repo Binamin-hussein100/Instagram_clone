@@ -1,0 +1,20 @@
+{%extends 'base.html'%}
+
+{% block content %}
+    <div class="container-fluid">
+       {% for i  in prof %}
+       <div class="container">
+           <div class="row">
+               <div class="col-md-5">
+                <img src="{{i.photo.url}}" class="img-thumbnail" alt="...">
+                   <!-- <img src="{{i.photo.url}}" alt=""> -->
+               </div>
+               <div class="col-md-3">
+                   <h6>{{i.user}}</h6>
+                   <p>{{i.bio}}</p>
+               </div>
+           </div>
+       </div>
+       {%endfor%}
+    </div>
+{%endblock%}
