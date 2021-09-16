@@ -8,6 +8,9 @@ django = "==3.2.7"
 psycopg2 = "*"
 django-bootstrap4 = "*"
 cloudinary = "*"
+dj-database-url = "*"
+whitenoise = "*"
+gunicorn = "*"
 
 [dev-packages]
 
