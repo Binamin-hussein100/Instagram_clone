@@ -8,7 +8,6 @@ from django.db.models.signals import post_save
 
 
 # Create your models here.
-
 class  Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     location = models.CharField(max_length=50, blank=True)
@@ -42,17 +41,17 @@ def user_profile(sender,**kwargs):
 post_save.connect(user_profile, sender=User)
 
 class Posts(models.Model):
-    user = ForeignKey(User, on_delete=models.CASCADE,default=None)
+    user = ForeignKey(User, on_delete=models.CASCADE,default=None,null=True, blank=True)
     image = CloudinaryField('image')
     title = models.CharField(max_length=30)
     caption = models.TextField()
     post_date = models.DateTimeField(auto_now_add=True)
-    profile = models.ForeignKey(Profile,on_delete=CASCADE)
-    likes = models.IntegerField(default=None)
+    profile = models.ForeignKey(Profile,on_delete=CASCADE,default=None,null=True, blank=True)
+    likes = models.IntegerField(default=3)
     
     class Meta:
         ordering = ['-pk']
-        verbose_name_plural = 'Images'
+        verbose_name_plural = 'posts'
         
     def save_post(self):
         self.save()
