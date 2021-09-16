@@ -1,1 +1,1 @@
-web: gunicorn instabinu.wsgi
+web: gunicorn instabinamin.wsgi
