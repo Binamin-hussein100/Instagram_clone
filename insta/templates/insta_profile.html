@@ -1,20 +1,41 @@
 {%extends 'base.html'%}
 
 {% block content %}
-    <div class="container-fluid">
-       {% for i  in prof %}
-       <div class="container">
+    <div id="pro" class="container">
+       <div class="container-fluid">
            <div class="row">
-               <div class="col-md-5">
-                <img src="{{i.photo.url}}" class="img-thumbnail" alt="...">
-                   <!-- <img src="{{i.photo.url}}" alt=""> -->
+               <div class="col-md-4 mt-2">
+                <img id="img_prof" src="{{user.profile.photo.url}}" class="img-thumbnail" alt="...">
                </div>
-               <div class="col-md-3">
-                   <h6>{{i.user}}</h6>
-                   <p>{{i.bio}}</p>
+               <div class="col-md-7">
+                   <div class="row">
+                        <div class="col-md-6 mt-5">
+                            <h3>{{user.username|upper}}</h3>
+                            <p>{{user.profile.bio}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            
+                        </div>
+                   </div>
                </div>
            </div>
        </div>
-       {%endfor%}
+       <div class="container-fluid mt-5">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="text-center">
+                    <form id="the_form" action="/" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row justify-content-center">
+                       
+                        {{ prof_form }}
+                        <hr class="mb-3">
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+                        </div>
+                    </form>
+                  </div>
+              </div>
+          </div>
+       </div>
     </div>
 {%endblock%}
