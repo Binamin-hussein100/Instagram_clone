@@ -145,6 +145,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 cloudinary.config( 
   cloud_name = os.environ.get('CLOUD_NAME'), 
-  api_key = os.environ.get('api_key'), 
+  api_key = 797142459758983, 
   api_secret = os.environ.get('api_secret') 
 )
