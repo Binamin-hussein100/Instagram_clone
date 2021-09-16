@@ -1,1 +1,1 @@
-web: gunicorn instahus.wsgi
+web: gunicorn instabinu.wsgi
