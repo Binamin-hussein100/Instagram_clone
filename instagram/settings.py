@@ -90,9 +90,9 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME':os.environ.get('DB_NAME'),
-            'USER': os.environ.get('USER'),
-            'PASSWORD': os.environ.get('PASSWORD')
+            'NAME':'insta2',
+            'USER':'moringa',
+            'PASSWORD': 'binamin',
         }
     }
 
