@@ -12,7 +12,7 @@ from django.contrib.auth import logout
 # Create your views here.
 
 
-@login_required()
+@login_required
 def index(request):
     posts = Posts.objects.all()
     if request.method == 'POST':
@@ -28,7 +28,6 @@ def index(request):
 
 
 def get_profile(request):
-    if request.user.is_authenticated:
         prof = Profile.objects.all()
         if request.method == 'POST':
             prof_form = Editprofileform(request.POST,request.FILES)
@@ -36,8 +35,7 @@ def get_profile(request):
                 profile = prof_form.save()
                 profile.save()
         return render(request,'insta_profile.html',{"prof":prof})
-    else:
-        return redirect('login')
+    
 
 @login_required()
 def search(request):
@@ -47,9 +45,6 @@ def search(request):
               searched = Posts.objects.filter(Q(title__icontains=query))
               print(searched)
               return render(request,'searched.html',{'searched':searched})
-              
-              
-              
               
             #   change
 

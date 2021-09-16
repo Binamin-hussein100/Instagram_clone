@@ -18,3 +18,6 @@ virtual:
 
 user:
 	python manage.py createsuperuser
+
+cached:
+	git rm --cached <file name>
