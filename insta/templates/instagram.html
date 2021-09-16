@@ -1,12 +1,12 @@
 {%extends 'base.html'%}
 
 {% block content %}
-<div class="container">
+<div id="hpg" class="container">
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-5">
+        <div class="col-md-5" >
             {% for i in posts %}
-                <div class="card" style="width: 28rem;">
+                <div class="card" style="width: 28rem; margin-top: 2%;">
                     <div class="card-header"><i class="fas fa-user-circle"></i><span><h5 class="d-inline">{{ i.user }}</h5></span> </div>
                     <img src="{{i.image.url}}" class="card-img-top" alt="...">
                     <div class="card-body">
@@ -17,6 +17,7 @@
                         </div>
                         <div>
                             <h6>{{i.user}}</h6>
+                            <h6>{{i.title}}</h6>
                             <p>{{i.caption}}</p>
                         </div>
                     
@@ -24,7 +25,19 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="col-md-3"></div>
+       
+        <div id="post" class="col-md-3" style="margin-top: 2%;">
+            <button onclick="display()" style="width: 100%;" class="btn btn-primary"><i class="fas fa-images"></i><span>  </span> New post</button>
+            <form id="the_form" action="{% url 'home' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row justify-content-center">
+               
+                {{ form }}
+                <hr class="mb-3">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
         <div class="col-md-2"></div>
 
     </div>
