@@ -1,13 +1,102 @@
+
+from django.db.models.query_utils import Q
 from django.shortcuts import render
 from insta.models import Profile,Posts,Comments,Followers
 from django.contrib.auth.decorators import login_required
-
+from insta.forms import NewpostForm,Editprofileform
+from django.shortcuts import render,redirect
+from django.contrib.auth.models import User
+from django.contrib import auth
+from django.contrib import messages
+from django.contrib.auth import logout
 # Create your views here.
 
+
+@login_required()
 def index(request):
     posts = Posts.objects.all()
-    return render(request,'instagram.html',{"posts":posts})
+    if request.method == 'POST':
+            # not_form = Posts(user = request.user ,profile=User.username)
+            form = NewpostForm(request.POST,request.FILES)
+            print(form)
+            if form.is_valid():
+                post=form.save(commit=False)
+                post.save()
+    else:
+        form = NewpostForm()
+    return render(request,'instagram.html',{"posts":posts,"form":form})
+
 
 def get_profile(request):
-    prof = Profile.objects.all()
-    return render(request,'insta_profile.html',{"prof":prof})
+    if request.user.is_authenticated:
+        prof = Profile.objects.all()
+        if request.method == 'POST':
+            prof_form = Editprofileform(request.POST,request.FILES)
+            if prof_form.is_valid():
+                profile = prof_form.save()
+                profile.save()
+        return render(request,'insta_profile.html',{"prof":prof})
+    else:
+        return redirect('login')
+
+@login_required()
+def search(request):
+      if request.method == 'GET':
+          query = request.GET.get("q")
+          if query:
+              searched = Posts.objects.filter(Q(title__icontains=query))
+              print(searched)
+              return render(request,'searched.html',{'searched':searched})
+              
+              
+              
+              
+            #   change
+
+
+def register(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email']
+        password1=request.POST['password']
+        password2 = request.POST['password2']
+        if password1 == password2:
+            if User.objects.filter(username = username).exists():
+                print('already exists')    
+                return redirect('register')
+            else:
+                if User.objects.filter(email=email).exists():
+                    messages.add_message(request, messages.warning,'Email already exists! Try another.')
+                    return redirect('register')
+                else:
+                    user = User.objects.create_user(username=username,email=email,password=password1)
+                    user.save()
+                    return redirect('login')
+        else:
+            messages.add_message(request,messages.warning,'Password must match!')
+            return redirect('register')
+    else:
+        return render(request,'registration.html')
+   
+def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password'] 
+        
+        user = auth.authenticate(username = username,password = password)
+        
+        if user is not None:
+            auth.login(request,user)
+            print('Login successfull!')
+            return redirect('home')
+        else:
+            print('invalid credencials!')
+            return redirect('login')
+    
+    else:
+        return render(request,'login.html')
+        
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+                  
