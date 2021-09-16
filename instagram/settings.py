@@ -144,7 +144,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 cloudinary.config( 
-  cloud_name = os.environ.get('CLOUD_NAME'), 
+  cloud_name = 'kingbin', 
   api_key = 797142459758983, 
-  api_secret = os.environ.get('api_secret') 
+  api_secret = 'cdIGxFq88jZuy8QjY-N9Pq22PSI'
 )
