@@ -1,5 +1,34 @@
 {%extends 'base.html'%}
 
 {% block content %}
-  <h5>{{user.username}}</h5>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        {% for p in searched%}
+        <div class="card" style="width: 28rem; margin-top: 2%;">
+          <div class="card-header"><i class="fas fa-user-circle"></i><span><h5 class="d-inline">{{ i.user }}</h5></span> </div>
+          <img src="{{p.image.url}}" class="card-img-top" alt="...">
+          <div class="card-body">
+              <div>
+              <a  href="/"> <i class="far fa-heart"></i></a>
+              <a href="/"><i class="far fa-comment"></i></a>
+              </i> <a href="/"><i class="far fa-paper-plane"></i></a>
+              </div>
+              <div>
+                  <h6>{{p.user}}</h6>
+                  <h6>{{p.title}}</h6>
+                  <p>{{p.caption}}</p>
+              </div>
+          
+          </div>
+      </div>
+        {%endfor%}
+      </div>
+      <div class="col-md-6">
+        <h5></h5>
+        <div class=""><i id="searched" class="fas fa-user-circle"></i><span><h5 class="d-inline">{{user.username | upper}}</h5></span> </div>
+      </div>
+    </div>
+  </div>
+ 
 {%endblock%}
